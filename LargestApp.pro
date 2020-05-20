@@ -9,8 +9,13 @@ DEFINES += VERSION=\\\"0.0.1\\\"
 #DEFINES += VERSION=\\\"$$system(git describe --always --abbrev=0)\\\"
 
 SOURCES += \
-        src/listmodels/StoragesListModel.cpp \
-        src/main.cpp
+    src/listmodels/StoragesListModel.cpp \
+    src/scanner/VolumeScanner.cpp \
+    src/main.cpp
+
+HEADERS += \
+    src/listmodels/StoragesListModel.hpp \
+    src/scanner/VolumeScanner.hpp
 
 RESOURCES += \
     resources.qrc \
@@ -27,8 +32,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 OTHER_FILES += \
     fonts/Roboto-Bold.ttf \
     fonts/Roboto-Regular.ttf
-
-HEADERS += \
-    src/listmodels/StoragesListModel.hpp
 
 RC_ICONS = app.ico
