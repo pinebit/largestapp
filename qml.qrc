@@ -1,7 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>qml/MaterialIcons.js</file>
-        <file>qml/MaterialIcon.qml</file>
+        <file>qml/Volumes/VolumesListView.qml</file>
+        <file>qml/Volumes/qmldir</file>
+        <file>qml/Material/MaterialIcon.qml</file>
+        <file>qml/Material/MaterialIcons.js</file>
+        <file>qml/Material/qmldir</file>
+        <file>qml/Volumes/VolumeListViewDelegate.qml</file>
     </qresource>
 </RCC>
