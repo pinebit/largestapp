@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = LargestApp
 
-QT += core quick quickcontrols2
+QT += core quick quickcontrols2 concurrent
 CONFIG += c++17 qtquickcompiler
 
 DEFINES += QT_DEPRECATED_WARNINGS

@@ -16,10 +16,14 @@ class SearchContext : public QObject
 public:
     explicit SearchContext(const QString &rootPath, QObject *parent = nullptr);
 
+    const int MaxTopFiles = 100;
+
     QString rootPath() const;
     QStringList files() const;
     bool isSearching() const;
     bool isCompleted() const;
+
+    Q_INVOKABLE QString getFileSize(const QString &path) const;
 
 public slots:
     void restart();

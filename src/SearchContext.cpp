@@ -1,5 +1,16 @@
 #include "SearchContext.hpp"
 #include <QDebug>
+#include <QtConcurrent>
+#include <QDirIterator>
+#include <QLocale>
+#include <algorithm>
+
+namespace {
+bool compareFileSizes(const QFileInfo &info1, const QFileInfo &info2)
+{
+    return info2.size() < info1.size();
+}
+}
 
 SearchContext::SearchContext(const QString &rootPath, QObject *parent)
     : QObject(parent)
@@ -28,6 +39,14 @@ bool SearchContext::isCompleted() const
     return _state == SearchState::Completed;
 }
 
+QString SearchContext::getFileSize(const QString &path) const
+{
+    QFileInfo info(path);
+    QLocale locale;
+
+    return locale.formattedDataSize(info.size());
+}
+
 void SearchContext::restart()
 {
     if (_state == SearchState::Searching) {
@@ -38,6 +57,33 @@ void SearchContext::restart()
     _state = SearchState::Searching;
 
     emit updated();
+
+    QtConcurrent::run([this]{
+        QList<QFileInfo> fileInfoList;
+
+        QDirIterator it(_rootPath, QDir::Files, QDirIterator::Subdirectories);
+        while (it.hasNext() && _state == SearchState::Searching) {
+            fileInfoList << it.fileInfo();
+            it.next();
+        }
+
+        std::sort(fileInfoList.begin(), fileInfoList.end(), compareFileSizes);
+
+        if (fileInfoList.size() > MaxTopFiles) {
+            fileInfoList = fileInfoList.mid(0, MaxTopFiles);
+        }
+
+        _files.clear();
+        _files.reserve(fileInfoList.size());
+
+        for (const auto &info : fileInfoList) {
+            _files << info.filePath();
+        }
+
+        _state = SearchState::Completed;
+
+        emit updated();
+    });
 }
 
 void SearchContext::stop()

@@ -63,7 +63,11 @@ ApplicationWindow {
 
         Component {
             id: resultsPaneComponent
-            Pane {
+            ResultsPane {
+                context: paneLoader.searchContext
+                onRestartScanning: {
+                    paneLoader.searchContext.restart()
+                }
             }
         }
     }

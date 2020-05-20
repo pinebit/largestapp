@@ -10,5 +10,6 @@
         <file>qml/Icons/MaterialIcon.qml</file>
         <file>qml/Icons/MaterialIcons.js</file>
         <file>qml/Icons/qmldir</file>
+        <file>qml/ResultsPane.qml</file>
     </qresource>
 </RCC>
