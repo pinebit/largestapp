@@ -3,10 +3,11 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 
-import Material 1.0
+import Icons 1.0
 
 Item {
     id: root
+    property bool scanning: false
     signal volumeSelected(int index)
 
     RowLayout {
@@ -14,8 +15,16 @@ Item {
         anchors.margins: 8
         spacing: 8
 
+        AnimatedScanningIcon {
+            Layout.alignment: Qt.AlignVCenter
+            Layout.preferredWidth: 24
+            Layout.preferredHeight: 24
+            visible: root.scanning
+        }
+
         MaterialIcon {
             Layout.alignment: Qt.AlignVCenter
+            visible: !root.scanning
             text: MaterialIcons.icons.dns
         }
 

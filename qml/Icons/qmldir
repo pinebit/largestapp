@@ -1,3 +1,5 @@
-module Material
+module Icons
 MaterialIcon 1.0 MaterialIcon.qml
 MaterialIcons 1.0 MaterialIcons.js
+AnimatedScanningIcon 1.0 AnimatedScanningIcon.qml
+

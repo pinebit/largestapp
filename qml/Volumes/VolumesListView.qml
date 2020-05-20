@@ -3,8 +3,8 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 
-import LargeAppComponents 1.0
-import Material 1.0
+import NativeComponents 1.0
+import Icons 1.0
 
 ListView {
     id: root
@@ -26,6 +26,7 @@ ListView {
     }
 
     delegate: VolumeListViewDelegate {
+        scanning: appState.volumeStates[index] === VolumeStates.scanning
         width: root.width
         height: 64
 

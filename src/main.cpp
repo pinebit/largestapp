@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     engine.addImportPath("qrc:/");
     engine.addImportPath("qrc:/qml");
 
-    qmlRegisterType<StoragesListModel>("LargeAppComponents", 1, 0, "StoragesListModel");
+    qmlRegisterType<StoragesListModel>("NativeComponents", 1, 0, "StoragesListModel");
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

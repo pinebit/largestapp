@@ -10,9 +10,8 @@ ApplicationWindow {
     minimumWidth: 800
     minimumHeight: 600
 
-    QtObject {
+    AppState {
         id: appState
-        property int currentVolume: 0
     }
 
     RowLayout {
@@ -29,26 +28,40 @@ ApplicationWindow {
             }
         }
 
-        Pane {
+        Loader {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Material.elevation: 4
 
-            RowLayout {
-                spacing: 16
-
-                Button {
-                    text: qsTr("Largest Files")
+            sourceComponent: {
+                const state = appState.currentVolumeState
+                switch (state) {
+                case VolumeStates.idle:
+                    return startScanPaneComponent
+                case VolumeStates.scanning:
+                    return scanningPaneComponent
                 }
+            }
+        }
 
-                Button {
-                    text: qsTr("Largest Folders")
+        Component {
+            id: startScanPaneComponent
+            StartScanPane {
+                onStartScanning: {
+                    let newStates = appState.volumeStates.slice()
+                    newStates[appState.currentVolume] = VolumeStates.scanning
+                    appState.volumeStates = newStates
                 }
+            }
+        }
 
-                Button {
-                    text: qsTr("File Duplicates")
+        Component {
+            id: scanningPaneComponent
+            ScanningPane {
+                onStopScanning: {
+                    let newStates = appState.volumeStates.slice()
+                    newStates[appState.currentVolume] = VolumeStates.idle
+                    appState.volumeStates = newStates
                 }
-
             }
         }
     }

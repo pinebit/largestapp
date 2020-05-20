@@ -1,2 +1,3 @@
 module Volumes
 VolumesListView 1.0 VolumesListView.qml
+singleton VolumeStates 1.0 VolumeStates.qml
