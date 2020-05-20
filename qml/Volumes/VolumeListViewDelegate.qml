@@ -7,8 +7,9 @@ import Icons 1.0
 
 Item {
     id: root
-    property bool scanning: false
-    signal volumeSelected(int index)
+    property bool searching: searchEngine.getSearchContext(model.rootPath).isSearching
+    property string rootPath: model.rootPath
+    signal volumeSelected(int index, string rootPath)
 
     RowLayout {
         anchors.fill: parent
@@ -19,12 +20,12 @@ Item {
             Layout.alignment: Qt.AlignVCenter
             Layout.preferredWidth: 24
             Layout.preferredHeight: 24
-            visible: root.scanning
+            visible: root.searching
         }
 
         MaterialIcon {
             Layout.alignment: Qt.AlignVCenter
-            visible: !root.scanning
+            visible: !root.searching
             text: MaterialIcons.icons.dns
         }
 
@@ -61,7 +62,7 @@ Item {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            root.volumeSelected(index)
+            root.volumeSelected(index, model.rootPath)
         }
     }
 }

@@ -4,14 +4,15 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 
 import Volumes 1.0
+import NativeComponents 1.0
 
 ApplicationWindow {
     visible: true
     minimumWidth: 800
     minimumHeight: 600
 
-    AppState {
-        id: appState
+    SearchEngine {
+        id: searchEngine
     }
 
     RowLayout {
@@ -20,26 +21,25 @@ ApplicationWindow {
         spacing: 16
 
         VolumesListView {
+            id: volumeSelector
             Layout.preferredWidth: 200
             Layout.fillHeight: true
-            currentIndex: appState.currentVolume
-            onVolumeSelected: {
-                appState.currentVolume = index
-            }
         }
 
         Loader {
+            id: paneLoader
+            property QtObject searchContext: searchEngine.getSearchContext(volumeSelector.selectedRootPath)
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             sourceComponent: {
-                const state = appState.currentVolumeState
-                switch (state) {
-                case VolumeStates.idle:
-                    return startScanPaneComponent
-                case VolumeStates.scanning:
+                if (searchContext.isSearching) {
                     return scanningPaneComponent
                 }
+                if (searchContext.isCompleted) {
+                    return resultsPaneComponent
+                }
+                return startScanPaneComponent
             }
         }
 
@@ -47,9 +47,7 @@ ApplicationWindow {
             id: startScanPaneComponent
             StartScanPane {
                 onStartScanning: {
-                    let newStates = appState.volumeStates.slice()
-                    newStates[appState.currentVolume] = VolumeStates.scanning
-                    appState.volumeStates = newStates
+                    paneLoader.searchContext.restart()
                 }
             }
         }
@@ -58,10 +56,14 @@ ApplicationWindow {
             id: scanningPaneComponent
             ScanningPane {
                 onStopScanning: {
-                    let newStates = appState.volumeStates.slice()
-                    newStates[appState.currentVolume] = VolumeStates.idle
-                    appState.volumeStates = newStates
+                    paneLoader.searchContext.stop()
                 }
+            }
+        }
+
+        Component {
+            id: resultsPaneComponent
+            Pane {
             }
         }
     }

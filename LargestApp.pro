@@ -9,11 +9,16 @@ DEFINES += VERSION=\\\"0.0.1\\\"
 #DEFINES += VERSION=\\\"$$system(git describe --always --abbrev=0)\\\"
 
 SOURCES += \
+    src/SearchContext.cpp \
+    src/SearchEngine.cpp \
     src/listmodels/StoragesListModel.cpp \
     src/scanner/VolumeScanner.cpp \
     src/main.cpp
 
 HEADERS += \
+    src/SearchContext.hpp \
+    src/SearchEngine.hpp \
+    src/SearchState.hpp \
     src/listmodels/StoragesListModel.hpp \
     src/scanner/VolumeScanner.hpp
 

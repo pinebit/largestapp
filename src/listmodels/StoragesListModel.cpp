@@ -13,6 +13,17 @@ StoragesListModel::StoragesListModel(QObject *parent)
     refresh();
 }
 
+int StoragesListModel::getDefaultIndex() const
+{
+    for (int i = 0; i < _volumes.size(); ++i) {
+        if (_volumes[i].isRoot()) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 int StoragesListModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid()) {

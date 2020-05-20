@@ -5,6 +5,7 @@
 #include <QIcon>
 #include <QQuickStyle>
 #include "src/listmodels/StoragesListModel.hpp"
+#include "src/SearchEngine.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -30,6 +31,7 @@ int main(int argc, char *argv[])
     engine.addImportPath("qrc:/qml");
 
     qmlRegisterType<StoragesListModel>("NativeComponents", 1, 0, "StoragesListModel");
+    qmlRegisterType<SearchEngine>("NativeComponents", 1, 0, "SearchEngine");
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

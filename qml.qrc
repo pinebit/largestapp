@@ -6,8 +6,6 @@
         <file>qml/Volumes/VolumeListViewDelegate.qml</file>
         <file>qml/StartScanPane.qml</file>
         <file>qml/ScanningPane.qml</file>
-        <file>qml/Volumes/VolumeStates.qml</file>
-        <file>qml/AppState.qml</file>
         <file>qml/Icons/AnimatedScanningIcon.qml</file>
         <file>qml/Icons/MaterialIcon.qml</file>
         <file>qml/Icons/MaterialIcons.js</file>

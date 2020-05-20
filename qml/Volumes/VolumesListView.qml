@@ -8,14 +8,18 @@ import Icons 1.0
 
 ListView {
     id: root
-    signal volumeSelected(int index)
+    property string selectedRootPath: ""
 
     Layout.preferredWidth: 200
     Layout.fillHeight: true
 
     model: StoragesListModel {
+        Component.onCompleted: {
+            root.currentIndex = getDefaultIndex()
+        }
     }
 
+    currentIndex: -1
     clip: true
     focus: true
     keyNavigationEnabled: true
@@ -26,12 +30,17 @@ ListView {
     }
 
     delegate: VolumeListViewDelegate {
-        scanning: appState.volumeStates[index] === VolumeStates.scanning
         width: root.width
         height: 64
 
         onVolumeSelected: {
-            root.volumeSelected(index)
+            root.currentIndex = index
+        }
+    }
+
+    onCurrentItemChanged: {
+        if (currentItem) {
+            root.selectedRootPath = currentItem.rootPath
         }
     }
 }

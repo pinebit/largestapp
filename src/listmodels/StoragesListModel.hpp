@@ -11,6 +11,8 @@ class StoragesListModel : public QAbstractListModel
 public:
     StoragesListModel(QObject *parent = nullptr);
 
+    Q_INVOKABLE int getDefaultIndex() const;
+
     // QAbstractItemModel interface
 public:
     int rowCount(const QModelIndex &parent) const override;
