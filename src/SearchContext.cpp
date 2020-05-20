@@ -47,6 +47,19 @@ QString SearchContext::getFileSize(const QString &path) const
     return locale.formattedDataSize(info.size());
 }
 
+QString SearchContext::getFileDirectory(const QString &path) const
+{
+    QFileInfo info(path);
+    return info.dir().path();
+}
+
+void SearchContext::deleteFile(const QString &path)
+{
+    _files.removeOne(path);
+
+    emit updated();
+}
+
 void SearchContext::restart()
 {
     if (_state == SearchState::Searching) {

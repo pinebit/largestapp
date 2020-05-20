@@ -11,5 +11,11 @@
         <file>qml/Icons/MaterialIcons.js</file>
         <file>qml/Icons/qmldir</file>
         <file>qml/ResultsPane.qml</file>
+        <file>qml/Results/FilesListView.qml</file>
+        <file>qml/Results/qmldir</file>
+        <file>qml/Results/FilesListViewDelegate.qml</file>
+        <file>qml/Results/FileContextMenu.qml</file>
+        <file>qml/Dialogs/ConfirmDeleteDialog.qml</file>
+        <file>qml/Dialogs/qmldir</file>
     </qresource>
 </RCC>

@@ -1,0 +1,2 @@
+module Dialogs
+ConfirmDeleteDialog 1.0 ConfirmDeleteDialog.qml

@@ -24,6 +24,8 @@ public:
     bool isCompleted() const;
 
     Q_INVOKABLE QString getFileSize(const QString &path) const;
+    Q_INVOKABLE QString getFileDirectory(const QString &path) const;
+    Q_INVOKABLE void deleteFile(const QString &path);
 
 public slots:
     void restart();
