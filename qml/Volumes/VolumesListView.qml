@@ -12,6 +12,11 @@ ListView {
 
     Layout.preferredWidth: 200
     Layout.fillHeight: true
+    currentIndex: -1
+    clip: true
+    focus: true
+    keyNavigationEnabled: true
+    highlightFollowsCurrentItem: false
 
     model: StoragesListModel {
         Component.onCompleted: {
@@ -19,14 +24,12 @@ ListView {
         }
     }
 
-    currentIndex: -1
-    clip: true
-    focus: true
-    keyNavigationEnabled: true
-    highlightFollowsCurrentItem: true
     highlight: Rectangle {
+        width: root.width
+        height: 64
         color: Material.primaryColor
         radius: 4
+        y: root.currentItem.y
     }
 
     delegate: VolumeListViewDelegate {

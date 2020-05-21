@@ -45,9 +45,23 @@ Pane {
         }
 
         FilesListView {
+            id: filesListView
+            visible: filesListView.count > 0
             context: root.context
             Layout.fillWidth: true
             Layout.fillHeight: true
+        }
+
+        Item {
+            visible: !filesListView.visible
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            Text {
+                anchors.centerIn: parent
+                color: Material.primaryHighlightedTextColor
+                text: qsTr("No files were found.")
+            }
         }
     }
 }

@@ -6,9 +6,18 @@ import QtQuick.Layouts 1.12
 Item {
     id: root
     property var descriptor
-    signal selected
+    property bool selected: false
+    signal select
+    signal toggleSelection
     signal openContainingFolder
     signal deleteFile
+
+    Rectangle {
+        visible: root.selected
+        anchors.fill: parent
+        color: Material.primaryColor
+        radius: 2
+    }
 
     RowLayout {
         anchors.fill: parent
@@ -35,11 +44,14 @@ Item {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: {
-            root.selected()
             if (mouse.button === Qt.RightButton) {
+                root.select()
                 contextMenu.x = mouse.x
                 contextMenu.y = mouse.y
                 contextMenu.open()
+            }
+            if (mouse.button === Qt.LeftButton) {
+                root.toggleSelection()
             }
         }
         onPressAndHold: {

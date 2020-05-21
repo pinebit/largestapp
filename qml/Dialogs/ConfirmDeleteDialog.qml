@@ -5,25 +5,40 @@ import QtQuick.Controls.Material 2.12
 
 Dialog {
     id: root
-    property string filePath
+    property var filePaths: []
 
     title: qsTr("Warning")
     width: 500
-    height: 200
+    height: Math.min(200 + filePaths.length * 16, 400)
 
     ColumnLayout {
+        id: layout
         anchors.fill: parent
+        spacing: 8
 
         Text {
             Layout.fillWidth: true
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-            text: qsTr("This file will be PERMANENTLY deleted: %1").arg(filePath)
+            text: root.filePaths.length === 1 ?
+                      qsTr("This file will be PERMANENTLY deleted:") :
+                      qsTr("These %1 files will be PERMANENTLY deleted:").arg(root.filePaths.length)
             font.bold: true
-            color: Material.color(Material.DeepOrange)
+            color: Material.color(Material.Red)
         }
 
-        Item {
+        ListView {
+            id: filesListView
+            Layout.fillWidth: true
             Layout.fillHeight: true
+            clip: true
+            model: root.filePaths
+
+            delegate: Text {
+                width: filesListView.width - 16
+                elide: Text.ElideMiddle
+                text: modelData
+                color: Material.secondaryTextColor
+            }
         }
 
         RowLayout {
