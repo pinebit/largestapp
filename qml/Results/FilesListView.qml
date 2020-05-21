@@ -27,7 +27,9 @@ ListView {
                 name: "selected"
 
                 function clear() {
-                    removeGroups(0, count, "selected")
+                    if (count > 0) {
+                        removeGroups(0, count, "selected")
+                    }
                 }
 
                 function getFilePaths() {
@@ -78,9 +80,24 @@ ListView {
         id: confirmDeleteDialog
 
         onAccepted: {
+            selectionGroup.clear()
+
+            let failedToRemove = []
+
             filePaths.forEach(path => {
-                root.context.deleteFile(path)
+                if (!root.context.deleteFile(path)) {
+                    failedToRemove.push(path)
+                }
             })
+
+            if (failedToRemove.length > 0) {
+                failedToRemoveDialog.filePaths = failedToRemove
+                failedToRemoveDialog.open()
+            }
         }
+    }
+
+    FailedToRemoveDialog {
+        id: failedToRemoveDialog
     }
 }

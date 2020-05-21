@@ -17,5 +17,7 @@
         <file>qml/Results/FileContextMenu.qml</file>
         <file>qml/Dialogs/ConfirmDeleteDialog.qml</file>
         <file>qml/Dialogs/qmldir</file>
+        <file>qml/Dialogs/FailedToRemoveDialog.qml</file>
+        <file>qml/Dialogs/FilesListView.qml</file>
     </qresource>
 </RCC>

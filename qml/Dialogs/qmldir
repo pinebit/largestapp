@@ -1,2 +1,3 @@
 module Dialogs
 ConfirmDeleteDialog 1.0 ConfirmDeleteDialog.qml
+FailedToRemoveDialog 1.0 FailedToRemoveDialog.qml

@@ -17,9 +17,7 @@ Dialog {
         spacing: 8
 
         Text {
-            text: root.filePaths.length === 1 ?
-                      qsTr("This file will be PERMANENTLY deleted:") :
-                      qsTr("These %1 files will be PERMANENTLY deleted:").arg(root.filePaths.length)
+            text: qsTr("These files cannot be deleted:")
             font.bold: true
             color: Material.color(Material.Red)
         }
@@ -37,18 +35,9 @@ Dialog {
             }
 
             Button {
-                text: qsTr("Cancel")
+                text: qsTr("Close")
                 onClicked: {
                     root.reject()
-                }
-            }
-
-            Button {
-                Material.foreground: Material.Red
-                text: qsTr("Delete")
-                font.bold: true
-                onClicked: {
-                    root.accept()
                 }
             }
         }

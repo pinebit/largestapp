@@ -17,6 +17,7 @@ public:
     explicit SearchContext(const QString &rootPath, QObject *parent = nullptr);
 
     const int MaxTopFiles = 100;
+    const int MinFileSize = 1024 * 1024;
 
     QString rootPath() const;
     QStringList files() const;
@@ -25,7 +26,7 @@ public:
 
     Q_INVOKABLE QString getFileSize(const QString &path) const;
     Q_INVOKABLE QString getFileDirectory(const QString &path) const;
-    Q_INVOKABLE void deleteFile(const QString &path);
+    Q_INVOKABLE bool deleteFile(const QString &path);
 
 public slots:
     void restart();

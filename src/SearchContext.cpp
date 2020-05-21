@@ -53,11 +53,17 @@ QString SearchContext::getFileDirectory(const QString &path) const
     return info.dir().path();
 }
 
-void SearchContext::deleteFile(const QString &path)
+bool SearchContext::deleteFile(const QString &path)
 {
-    _files.removeOne(path);
+    QFile file(path);
+    if (!file.setPermissions(QFileDevice::WriteOther) || !file.remove()) {
+        return false;
+    }
 
+    _files.removeOne(path);
     emit updated();
+
+    return true;
 }
 
 void SearchContext::restart()
@@ -76,7 +82,10 @@ void SearchContext::restart()
 
         QDirIterator it(_rootPath, QDir::Files, QDirIterator::Subdirectories);
         while (it.hasNext() && _state == SearchState::Searching) {
-            fileInfoList << it.fileInfo();
+            auto info = it.fileInfo();
+            if (info.size() > MinFileSize) {
+                fileInfoList << info;
+            }
             it.next();
         }
 
