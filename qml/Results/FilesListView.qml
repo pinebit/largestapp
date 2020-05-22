@@ -75,6 +75,9 @@ ListView {
                 confirmDeleteDialog.filePaths = selectionGroup.getFilePaths()
                 confirmDeleteDialog.open()
             }
+            onFindDuplicates: {
+                findDuplicatesDialogLoader.open(model.filePath)
+            }
         }
     }
 
@@ -105,5 +108,23 @@ ListView {
 
     FailedToRemoveDialog {
         id: failedToRemoveDialog
+    }
+
+    Loader {
+        id: findDuplicatesDialogLoader
+        active: false
+
+        function open(filePath) {
+            active = true
+            item.filePath = filePath
+            item.open()
+        }
+
+        sourceComponent: FindDuplicatesDialog {
+            context: root.context
+            onClosed: {
+                findDuplicatesDialogLoader.active = false
+            }
+        }
     }
 }

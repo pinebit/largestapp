@@ -5,6 +5,7 @@ import QtQuick.Controls.Material 2.12
 Menu {
     property bool multiple: false
     signal openFolder
+    signal findDuplicates
     signal deleteFile
     implicitWidth: 250
 
@@ -15,7 +16,11 @@ Menu {
         }
     }
 
-    MenuSeparator {
+    MenuItem {
+        text: qsTr("Check for duplicates...")
+        onTriggered: {
+            findDuplicates()
+        }
     }
 
     MenuItem {

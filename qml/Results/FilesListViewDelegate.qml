@@ -10,6 +10,7 @@ Item {
     signal select
     signal toggleSelection
     signal openContainingFolder
+    signal findDuplicates
     signal deleteFile
 
     Rectangle {
@@ -71,6 +72,9 @@ Item {
         multiple: root.multipleSelected
         onOpenFolder: {
             root.openContainingFolder()
+        }
+        onFindDuplicates: {
+            root.findDuplicates()
         }
         onDeleteFile: {
             root.deleteFile()

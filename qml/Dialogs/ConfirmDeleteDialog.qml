@@ -9,6 +9,7 @@ Dialog {
 
     title: qsTr("WARNING")
     width: 500
+    modal: true
     height: Math.min(200 + filePaths.length * 16, 400)
 
     ColumnLayout {

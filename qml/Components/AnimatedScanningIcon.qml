@@ -13,5 +13,6 @@ MaterialIcon {
         to: 0
         duration: 1000
         loops: Animation.Infinite
+        running: true
     }
 }
