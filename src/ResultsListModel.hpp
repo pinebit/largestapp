@@ -2,6 +2,7 @@
 #define RESULTSLISTMODEL_HPP
 
 #include <QAbstractListModel>
+#include <QFileInfo>
 
 class SearchContext;
 
@@ -31,7 +32,7 @@ private:
         FileSizeRole
     };
 
-    QList<QString> _files;
+    QList<QFileInfo> _files;
     SearchContext *_context;
     bool _groupByFolders { false };
 };

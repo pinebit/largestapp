@@ -2,6 +2,7 @@
 #define SEARCHCONTEXT_HPP
 
 #include <QObject>
+#include <QFileInfo>
 #include <src/SearchState.hpp>
 
 class SearchConfig;
@@ -24,7 +25,7 @@ public:
     QString rootPath() const;
     bool isSearching() const;
     bool isCompleted() const;
-    QStringList files() const;
+    QList<QFileInfo> files() const;
     ResultsListModel *resultsListModel() const;
 
 public slots:
@@ -39,7 +40,7 @@ signals:
 private:
     QString _rootPath;
     SearchState _state { SearchState::New };
-    QStringList _files;
+    QList<QFileInfo> _files;
     SearchConfig* _config;
     ResultsListModel* _listModel;
 };

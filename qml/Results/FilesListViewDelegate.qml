@@ -23,7 +23,7 @@ Item {
         anchors.fill: parent
         anchors.leftMargin: 16
         anchors.rightMargin: 16
-        spacing: 64
+        spacing: 32
 
         Text {
             Layout.alignment: Qt.AlignVCenter
@@ -60,6 +60,9 @@ Item {
                 contextMenu.y = mouse.y
                 contextMenu.open()
             }
+        }
+        onDoubleClicked: {
+            Qt.openUrlExternally(model.filePath)
         }
     }
 

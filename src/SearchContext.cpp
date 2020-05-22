@@ -41,7 +41,7 @@ bool SearchContext::isCompleted() const
     return _state == SearchState::Completed;
 }
 
-QStringList SearchContext::files() const
+QList<QFileInfo> SearchContext::files() const
 {
     return _files;
 }
@@ -58,7 +58,7 @@ bool SearchContext::deleteFile(const QString &path)
         return false;
     }
 
-    _files.removeOne(path);
+    _files.removeOne(QFileInfo(path));
     emit updated();
 
     return true;
@@ -76,9 +76,9 @@ void SearchContext::restart()
     emit updated();
 
     QtConcurrent::run([this]{
-        QList<QFileInfo> fileInfoList;
-
+        _files.clear();
         QDirIterator it(_rootPath, QDir::Files, QDirIterator::Subdirectories);
+
         while (it.hasNext() && _state == SearchState::Searching) {
             auto info = it.fileInfo();
             emit statusUpdated(info.dir().path());
@@ -87,24 +87,17 @@ void SearchContext::restart()
                 continue;
             }
             if (info.size() > _config->minFileSize()) {
-                fileInfoList << info;
+                _files << info;
             }
             it.next();
         }
 
         emit statusUpdated(tr("Sorting the files..."));
 
-        std::sort(fileInfoList.begin(), fileInfoList.end(), compareFileSizes);
+        std::sort(_files.begin(), _files.end(), compareFileSizes);
 
-        if (fileInfoList.size() > _config->maxTopFiles()) {
-            fileInfoList = fileInfoList.mid(0, _config->maxTopFiles());
-        }
-
-        _files.clear();
-        _files.reserve(fileInfoList.size());
-
-        for (const auto &info : fileInfoList) {
-            _files << info.filePath();
+        if (_files.size() > _config->maxTopFiles()) {
+            _files = _files.mid(0, _config->maxTopFiles());
         }
 
         _state = SearchState::Completed;

@@ -1,6 +1,5 @@
 #include "ResultsListModel.hpp"
 #include "SearchContext.hpp"
-#include <QFileInfo>
 #include <QDir>
 #include <QLocale>
 
@@ -32,19 +31,17 @@ QVariant ResultsListModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    const auto filePath = _files[index.row()];
+    const auto fileInfo = _files[index.row()];
 
     switch (static_cast<Roles>(role)) {
     case FilePathRole:
-        return filePath;
+        return fileInfo.filePath();
     case FileDirectoryRole: {
-        QFileInfo info(filePath);
-        return info.dir().path();
+        return fileInfo.dir().path();
     }
     case FileSizeRole: {
-        QFileInfo info(filePath);
         QLocale locale;
-        return locale.formattedDataSize(info.size());
+        return locale.formattedDataSize(fileInfo.size());
     }
     }
 
@@ -74,23 +71,32 @@ void ResultsListModel::setGroupByFolders(bool on)
 void ResultsListModel::refreshData()
 {
     beginResetModel();
+
+    _files = _context->files();
+
     if (_groupByFolders) {
         QStringList dirs;
-        QHash<QString, QStringList> map;
-        for (auto path : _context->files()) {
-            QFileInfo info(path);
+        QHash<QString, QList<int>> map;
+        int index = 0;
+
+        for (const auto &info : _files) {
             const auto dir = info.dir().path();
             if (!map.contains(dir)) {
                 dirs << dir;
             }
-            map[dir] << path;
+            map[dir] << index;
+            index++;
         }
-        _files.clear();
+
+        QList<QFileInfo> newList;
         for (auto dir : dirs) {
-            _files << map.value(dir);
-        }
-    } else {
-        _files = _context->files();
+            const auto &indices = map.value(dir);
+            for (int index : indices) {
+                newList << _files[index];
+            }
+        }        
+        _files = newList;
     }
+
     endResetModel();
 }
