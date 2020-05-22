@@ -2,8 +2,11 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
+import Qt.labs.settings 1.1
 
 import Volumes 1.0
+import Settings 1.0
+import Components 1.0
 import NativeComponents 1.0
 
 ApplicationWindow {
@@ -11,8 +14,25 @@ ApplicationWindow {
     minimumWidth: 800
     minimumHeight: 600
 
+    Settings {
+        id: appSettings
+        property int maxTopFiles: 100
+        property int minFileSize: 2
+        property bool ignoreHidden: true
+    }
+
     SearchEngine {
         id: searchEngine
+        config.maxTopFiles: appSettings.maxTopFiles
+        config.minFileSize: {
+            switch (appSettings.minFileSize) {
+            case 1: return 1024
+            case 2: return 1024 * 1024
+            case 3: return 1024 * 1024 * 1024
+            }
+            return 0
+        }
+        config.ignoreHidden: appSettings.ignoreHidden
     }
 
     RowLayout {
@@ -70,5 +90,20 @@ ApplicationWindow {
                 }
             }
         }
+    }
+
+    IconButton {
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.margins: 20
+        icon: MaterialIcons.icons.settings
+        onClicked: {
+            settingsDrawer.open()
+        }
+    }
+
+    SettingsDrawer {
+        id: settingsDrawer
+        settings: appSettings
     }
 }

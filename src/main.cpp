@@ -6,6 +6,7 @@
 #include <QQuickStyle>
 #include "src/listmodels/StoragesListModel.hpp"
 #include "src/SearchEngine.hpp"
+#include "src/SearchConfig.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +17,7 @@ int main(int argc, char *argv[])
     app.setApplicationName("LARGEST");
     app.setApplicationVersion(QString(VERSION));
     app.setApplicationDisplayName("LARGEST APP");
-    app.setOrganizationDomain("largest.app");
+    app.setOrganizationDomain("largestapp.com");
     app.setWindowIcon(QIcon(":/app.ico"));
 
     QFontDatabase::addApplicationFont(":/fonts/Roboto-Bold.ttf");
@@ -32,6 +33,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterType<StoragesListModel>("NativeComponents", 1, 0, "StoragesListModel");
     qmlRegisterType<SearchEngine>("NativeComponents", 1, 0, "SearchEngine");
+    qmlRegisterType<SearchConfig>("NativeComponents", 1, 0, "SearchConfig");
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

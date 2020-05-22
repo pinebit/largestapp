@@ -6,10 +6,10 @@
         <file>qml/Volumes/VolumeListViewDelegate.qml</file>
         <file>qml/StartScanPane.qml</file>
         <file>qml/ScanningPane.qml</file>
-        <file>qml/Icons/AnimatedScanningIcon.qml</file>
-        <file>qml/Icons/MaterialIcon.qml</file>
-        <file>qml/Icons/MaterialIcons.js</file>
-        <file>qml/Icons/qmldir</file>
+        <file>qml/Components/AnimatedScanningIcon.qml</file>
+        <file>qml/Components/MaterialIcon.qml</file>
+        <file>qml/Components/MaterialIcons.js</file>
+        <file>qml/Components/qmldir</file>
         <file>qml/ResultsPane.qml</file>
         <file>qml/Results/FilesListView.qml</file>
         <file>qml/Results/qmldir</file>
@@ -19,5 +19,11 @@
         <file>qml/Dialogs/qmldir</file>
         <file>qml/Dialogs/FailedToRemoveDialog.qml</file>
         <file>qml/Dialogs/FilesListView.qml</file>
+        <file>qml/Settings/qmldir</file>
+        <file>qml/Settings/SettingsDrawer.qml</file>
+        <file>qml/Components/IconButton.qml</file>
+        <file>qml/Settings/FileSizeSetting.qml</file>
+        <file>qml/Settings/MaxTopFilesSetting.qml</file>
+        <file>qml/Settings/IgnoreHiddenFilesSetting.qml</file>
     </qresource>
 </RCC>

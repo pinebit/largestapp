@@ -4,7 +4,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 
 import NativeComponents 1.0
-import Icons 1.0
+import Components 1.0
 
 ListView {
     id: root

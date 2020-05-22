@@ -1,4 +1,5 @@
 #include "SearchContext.hpp"
+#include "SearchConfig.hpp"
 #include <QDebug>
 #include <QtConcurrent>
 #include <QDirIterator>
@@ -12,9 +13,12 @@ bool compareFileSizes(const QFileInfo &info1, const QFileInfo &info2)
 }
 }
 
-SearchContext::SearchContext(const QString &rootPath, QObject *parent)
+SearchContext::SearchContext(const QString &rootPath,
+                             SearchConfig *config,
+                             QObject *parent)
     : QObject(parent)
     , _rootPath(rootPath)
+    , _config(config)
 {
     qRegisterMetaType<SearchState>("SearchState");
 }
@@ -83,7 +87,11 @@ void SearchContext::restart()
         QDirIterator it(_rootPath, QDir::Files, QDirIterator::Subdirectories);
         while (it.hasNext() && _state == SearchState::Searching) {
             auto info = it.fileInfo();
-            if (info.size() > MinFileSize) {
+            if (_config->ignoreHidden() && info.isHidden()) {
+                it.next();
+                continue;
+            }
+            if (info.size() > _config->minFileSize()) {
                 fileInfoList << info;
             }
             it.next();
@@ -91,8 +99,8 @@ void SearchContext::restart()
 
         std::sort(fileInfoList.begin(), fileInfoList.end(), compareFileSizes);
 
-        if (fileInfoList.size() > MaxTopFiles) {
-            fileInfoList = fileInfoList.mid(0, MaxTopFiles);
+        if (fileInfoList.size() > _config->maxTopFiles()) {
+            fileInfoList = fileInfoList.mid(0, _config->maxTopFiles());
         }
 
         _files.clear();

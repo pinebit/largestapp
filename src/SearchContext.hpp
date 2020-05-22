@@ -4,6 +4,8 @@
 #include <QObject>
 #include <src/SearchState.hpp>
 
+class SearchConfig;
+
 class SearchContext : public QObject
 {
     Q_OBJECT
@@ -14,15 +16,16 @@ class SearchContext : public QObject
     Q_PROPERTY(bool isCompleted READ isCompleted NOTIFY updated)
 
 public:
-    explicit SearchContext(const QString &rootPath, QObject *parent = nullptr);
-
-    const int MaxTopFiles = 100;
-    const int MinFileSize = 1024 * 1024;
+    explicit SearchContext(const QString &rootPath,
+                           SearchConfig *config,
+                           QObject *parent = nullptr);
 
     QString rootPath() const;
     QStringList files() const;
     bool isSearching() const;
     bool isCompleted() const;
+
+    void updateSettings(int maxTopFiles, int minFileSize);
 
     Q_INVOKABLE QString getFileSize(const QString &path) const;
     Q_INVOKABLE QString getFileDirectory(const QString &path) const;
@@ -39,6 +42,7 @@ private:
     QString _rootPath;
     SearchState _state { SearchState::New };
     QStringList _files;
+    SearchConfig* _config;
 };
 
 Q_DECLARE_METATYPE(SearchContext*);
