@@ -25,5 +25,6 @@
         <file>qml/Settings/FileSizeSetting.qml</file>
         <file>qml/Settings/MaxTopFilesSetting.qml</file>
         <file>qml/Settings/IgnoreHiddenFilesSetting.qml</file>
+        <file>qml/Settings/AboutSection.qml</file>
     </qresource>
 </RCC>
