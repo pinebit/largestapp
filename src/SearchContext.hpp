@@ -35,6 +35,7 @@ public slots:
     bool deleteFile(const QString &path);
     void findDuplicates(const QString &path);
     void cancelFindingDuplicates();
+    void openFile(const QString &path);
 
 signals:
     void updated();

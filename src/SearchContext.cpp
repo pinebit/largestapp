@@ -6,6 +6,8 @@
 #include <QDirIterator>
 #include <QLocale>
 #include <QCryptographicHash>
+#include <QUrl>
+#include <QDesktopServices>
 #include <algorithm>
 
 namespace {
@@ -174,6 +176,11 @@ void SearchContext::findDuplicates(const QString &path)
 void SearchContext::cancelFindingDuplicates()
 {
     _findingDuplicates = false;
+}
+
+void SearchContext::openFile(const QString &path)
+{
+    QDesktopServices::openUrl(QUrl::fromLocalFile(path));
 }
 
 void SearchContext::restart()

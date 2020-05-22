@@ -71,7 +71,7 @@ Drawer {
         }
 
         AboutSection {
-            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter
         }
     }
 }

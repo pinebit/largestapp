@@ -21,6 +21,11 @@ Pane {
         RowLayout {
             Layout.fillWidth: true
 
+            Text {
+                color: Material.primaryTextColor
+                text: qsTr("Largest Files:")
+            }
+
             Switch {
                 text: qsTr("Group By Folder")
                 checked: appSettings.groupByFolders

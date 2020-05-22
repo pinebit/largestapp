@@ -10,6 +10,7 @@ Item {
     signal select
     signal toggleSelection
     signal openContainingFolder
+    signal openFile
     signal findDuplicates
     signal deleteFile
 
@@ -63,7 +64,7 @@ Item {
             }
         }
         onDoubleClicked: {
-            Qt.openUrlExternally(model.filePath)
+            root.openFile()
         }
     }
 

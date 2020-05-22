@@ -69,7 +69,10 @@ ListView {
                 item.DelegateModel.inSelected = !item.DelegateModel.inSelected
             }
             onOpenContainingFolder: {
-                Qt.openUrlExternally(model.fileDir)
+                root.context.openFile(model.fileDir)
+            }
+            onOpenFile: {
+                root.context.openFile(model.filePath)
             }
             onDeleteFile: {
                 confirmDeleteDialog.filePaths = selectionGroup.getFilePaths()
