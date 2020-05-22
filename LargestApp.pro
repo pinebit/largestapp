@@ -5,14 +5,13 @@ QT += core quick quickcontrols2 concurrent
 CONFIG += c++17 qtquickcompiler
 
 DEFINES += QT_DEPRECATED_WARNINGS
-DEFINES += VERSION=\\\"0.0.1\\\"
-#DEFINES += VERSION=\\\"$$system(git describe --always --abbrev=0)\\\"
+DEFINES += VERSION=\\\"$$system(git describe --always --abbrev=0)\\\"
 
 SOURCES += \
     src/SearchConfig.cpp \
     src/SearchContext.cpp \
     src/SearchEngine.cpp \
-    src/listmodels/StoragesListModel.cpp \
+    src/VolumesListModel.cpp \
     src/main.cpp
 
 HEADERS += \
@@ -20,7 +19,7 @@ HEADERS += \
     src/SearchContext.hpp \
     src/SearchEngine.hpp \
     src/SearchState.hpp \
-    src/listmodels/StoragesListModel.hpp
+    src/VolumesListModel.hpp
 
 RESOURCES += \
     resources.qrc \

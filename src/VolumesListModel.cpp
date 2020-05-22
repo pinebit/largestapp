@@ -1,4 +1,4 @@
-#include "StoragesListModel.hpp"
+#include "VolumesListModel.hpp"
 
 namespace {
 const char *NameRoleName = "name";
@@ -7,13 +7,13 @@ const char *RootPathRoleName = "rootPath";
 const char *SpaceAvailableRoleName = "spaceAvailable";
 }
 
-StoragesListModel::StoragesListModel(QObject *parent)
+VolumesListModel::VolumesListModel(QObject *parent)
     : QAbstractListModel(parent)
 {
     refresh();
 }
 
-int StoragesListModel::getDefaultIndex() const
+int VolumesListModel::getDefaultIndex() const
 {
     for (int i = 0; i < _volumes.size(); ++i) {
         if (_volumes[i].isRoot()) {
@@ -24,7 +24,7 @@ int StoragesListModel::getDefaultIndex() const
     return -1;
 }
 
-int StoragesListModel::rowCount(const QModelIndex &parent) const
+int VolumesListModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid()) {
         return 0;
@@ -33,7 +33,7 @@ int StoragesListModel::rowCount(const QModelIndex &parent) const
     return _volumes.size();
 }
 
-QVariant StoragesListModel::data(const QModelIndex &index, int role) const
+QVariant VolumesListModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) {
         return QVariant();
@@ -54,7 +54,7 @@ QVariant StoragesListModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QHash<int, QByteArray> StoragesListModel::roleNames() const
+QHash<int, QByteArray> VolumesListModel::roleNames() const
 {
     static QHash<int, QByteArray> roles = {
         { NameRole, NameRoleName },
@@ -66,7 +66,7 @@ QHash<int, QByteArray> StoragesListModel::roleNames() const
     return roles;
 }
 
-void StoragesListModel::refresh()
+void VolumesListModel::refresh()
 {
     beginResetModel();
     _volumes = QStorageInfo::mountedVolumes();

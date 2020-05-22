@@ -4,7 +4,7 @@
 #include <QFontDatabase>
 #include <QIcon>
 #include <QQuickStyle>
-#include "src/listmodels/StoragesListModel.hpp"
+#include "src/VolumesListModel.hpp"
 #include "src/SearchEngine.hpp"
 #include "src/SearchConfig.hpp"
 
@@ -30,8 +30,9 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
     engine.addImportPath("qrc:/qml");
+    engine.rootContext()->setContextProperty("version", VERSION);
 
-    qmlRegisterType<StoragesListModel>("NativeComponents", 1, 0, "StoragesListModel");
+    qmlRegisterType<VolumesListModel>("NativeComponents", 1, 0, "VolumesListModel");
     qmlRegisterType<SearchEngine>("NativeComponents", 1, 0, "SearchEngine");
     qmlRegisterType<SearchConfig>("NativeComponents", 1, 0, "SearchConfig");
 

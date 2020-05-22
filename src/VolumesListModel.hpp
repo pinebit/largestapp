@@ -1,15 +1,15 @@
-#ifndef STORAGESLISTMODEL_HPP
-#define STORAGESLISTMODEL_HPP
+#ifndef VOLUMESLISTMODEL_HPP
+#define VOLUMESLISTMODEL_HPP
 
 #include <QAbstractListModel>
 #include <QStorageInfo>
 
-class StoragesListModel : public QAbstractListModel
+class VolumesListModel : public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    StoragesListModel(QObject *parent = nullptr);
+    VolumesListModel(QObject *parent = nullptr);
 
     Q_INVOKABLE int getDefaultIndex() const;
 
@@ -33,6 +33,6 @@ private:
     QList<QStorageInfo> _volumes;
 };
 
-Q_DECLARE_METATYPE(StoragesListModel*);
+Q_DECLARE_METATYPE(VolumesListModel*);
 
-#endif // STORAGESLISTMODEL_HPP
+#endif // VOLUMESLISTMODEL_HPP

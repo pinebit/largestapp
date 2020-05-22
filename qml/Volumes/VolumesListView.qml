@@ -18,7 +18,7 @@ ListView {
     keyNavigationEnabled: true
     highlightFollowsCurrentItem: false
 
-    model: StoragesListModel {
+    model: VolumesListModel {
         Component.onCompleted: {
             root.currentIndex = getDefaultIndex()
         }

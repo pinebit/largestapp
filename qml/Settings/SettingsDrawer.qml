@@ -65,5 +65,16 @@ Drawer {
                 Layout.fillHeight: true
             }
         }
+
+        MenuSeparator {
+            Layout.fillWidth: true
+        }
+
+        Text {
+            Layout.fillWidth: true
+            text: qsTr("Version: %1").arg(version)
+            font.pixelSize: 10
+            color: Material.secondaryTextColor
+        }
     }
 }
