@@ -19,6 +19,7 @@ ApplicationWindow {
         property int maxTopFiles: 100
         property int minFileSize: 2
         property bool ignoreHidden: true
+        property bool groupByFolders: true
     }
 
     SearchEngine {

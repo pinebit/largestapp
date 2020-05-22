@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 
 Menu {
+    property bool multiple: false
     signal openFolder
     signal deleteFile
     implicitWidth: 250
@@ -18,7 +19,7 @@ Menu {
     }
 
     MenuItem {
-        text: qsTr("Delete this file...")
+        text: multiple ? qsTr("Delete these files...") : qsTr("Delete this file...")
         onTriggered: {
             deleteFile()
         }

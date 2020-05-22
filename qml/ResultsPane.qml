@@ -21,10 +21,13 @@ Pane {
         RowLayout {
             Layout.fillWidth: true
 
-            Text {
-                Layout.alignment: Qt.AlignBottom
-                text: qsTr("Top Largest Files:")
-                color: Material.primaryHighlightedTextColor
+            Switch {
+                text: qsTr("Group By Folder")
+                checked: appSettings.groupByFolders
+                onCheckedChanged: {
+                    appSettings.groupByFolders = checked
+                    root.context.resultsListModel.setGroupByFolders(checked)
+                }
             }
 
             Item {

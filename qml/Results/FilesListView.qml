@@ -13,9 +13,20 @@ ListView {
     clip: true
     focus: true
     interactive: true
+    spacing: 2
 
     Keys.onEscapePressed: {
         selectionGroup.clear()
+    }
+
+    section.criteria: ViewSection.FullString
+    section.property: "fileDir"
+    section.delegate: Text {
+        height: 24
+        text: section
+        font.pixelSize: 14
+        color: Material.secondaryTextColor
+        verticalAlignment: Qt.AlignBottom
     }
 
     model: DelegateModel {
@@ -44,6 +55,7 @@ ListView {
 
         delegate: FilesListViewDelegate {
             id: item
+            multipleSelected: selectionGroup.count > 1
             selected: DelegateModel.inSelected
             width: root.width - 20
             height: 32

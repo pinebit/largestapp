@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 
 Item {
     id: root
+    property bool multipleSelected: false
     property bool selected: false
     signal select
     signal toggleSelection
@@ -28,7 +29,7 @@ Item {
             Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
             color: Material.primaryTextColor
-            text: model.filePath
+            text: model.filePath.slice(model.fileDir.length + 1)
             elide: Text.ElideMiddle
         }
 
@@ -64,6 +65,7 @@ Item {
 
     FileContextMenu {
         id: contextMenu
+        multiple: root.multipleSelected
         onOpenFolder: {
             root.openContainingFolder()
         }

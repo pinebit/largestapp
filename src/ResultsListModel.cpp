@@ -14,7 +14,7 @@ ResultsListModel::ResultsListModel(SearchContext *context, QObject *parent)
     : QAbstractListModel(parent)
     , _context(context)
 {
-    connect(context, &SearchContext::updated, this, &ResultsListModel::contextUpdated);
+    connect(context, &SearchContext::updated, this, &ResultsListModel::refreshData);
 }
 
 int ResultsListModel::rowCount(const QModelIndex &parent) const
@@ -62,9 +62,35 @@ QHash<int, QByteArray> ResultsListModel::roleNames() const
     return roles;
 }
 
-void ResultsListModel::contextUpdated()
+void ResultsListModel::setGroupByFolders(bool on)
+{
+    if (_groupByFolders != on) {
+        _groupByFolders = on;
+
+        refreshData();
+    }
+}
+
+void ResultsListModel::refreshData()
 {
     beginResetModel();
-    _files = _context->files();
+    if (_groupByFolders) {
+        QStringList dirs;
+        QHash<QString, QStringList> map;
+        for (auto path : _context->files()) {
+            QFileInfo info(path);
+            const auto dir = info.dir().path();
+            if (!map.contains(dir)) {
+                dirs << dir;
+            }
+            map[dir] << path;
+        }
+        _files.clear();
+        for (auto dir : dirs) {
+            _files << map.value(dir);
+        }
+    } else {
+        _files = _context->files();
+    }
     endResetModel();
 }

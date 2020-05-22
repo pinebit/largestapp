@@ -16,7 +16,7 @@ ColumnLayout {
     Text {
         Layout.alignment: Qt.AlignHCenter
         text: "<a href=\"largestapp.com\">largestapp.com</a>"
-        font.pixelSize: 10
+        font.pixelSize: 12
         font.bold: true
         linkColor: Qt.lighter(Material.primaryColor)
         onLinkActivated: {

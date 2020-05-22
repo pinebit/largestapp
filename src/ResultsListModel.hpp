@@ -18,8 +18,11 @@ public:
     QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
+public slots:
+    void setGroupByFolders(bool on);
+
 private slots:
-    void contextUpdated();
+    void refreshData();
 
 private:
     enum Roles {
@@ -30,6 +33,7 @@ private:
 
     QList<QString> _files;
     SearchContext *_context;
+    bool _groupByFolders { false };
 };
 
 Q_DECLARE_METATYPE(ResultsListModel*);
