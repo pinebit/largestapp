@@ -10,9 +10,20 @@ import Components 1.0
 import NativeComponents 1.0
 
 ApplicationWindow {
+    id: root
     visible: true
     minimumWidth: 800
     minimumHeight: 600
+
+    WindowState {
+        window: root
+        defaultWidth: 1280
+        defaultHeight: 720
+
+        Component.onCompleted: {
+            restore()
+        }
+    }
 
     Settings {
         id: appSettings
