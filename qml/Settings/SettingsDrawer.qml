@@ -72,6 +72,7 @@ Drawer {
 
         Text {
             Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr("Version: %1").arg(version)
             font.pixelSize: 10
             color: Material.secondaryTextColor

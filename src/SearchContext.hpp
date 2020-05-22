@@ -25,8 +25,6 @@ public:
     bool isSearching() const;
     bool isCompleted() const;
 
-    void updateSettings(int maxTopFiles, int minFileSize);
-
     Q_INVOKABLE QString getFileSize(const QString &path) const;
     Q_INVOKABLE QString getFileDirectory(const QString &path) const;
     Q_INVOKABLE bool deleteFile(const QString &path);
@@ -37,6 +35,7 @@ public slots:
 
 signals:
     void updated();
+    void statusUpdated(const QString &status);
 
 private:
     QString _rootPath;

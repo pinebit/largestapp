@@ -7,18 +7,41 @@ import Components 1.0
 
 Pane {
     id: root
+    property QtObject context
     signal stopScanning()
 
     Material.elevation: 4
 
+    Connections {
+        target: context
+        onStatusUpdated: {
+            if (statusLabel.text !== status) {
+                statusLabel.text = status
+            }
+        }
+    }
+
     ColumnLayout {
-        anchors.centerIn: parent
+        anchors.fill: parent
         spacing: 32
 
+        Item {
+            Layout.fillHeight: true
+        }
+
         Text {
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignCenter
             color: Material.primaryTextColor
             text: qsTr("Scanning is in progress, this may take some time...")
+        }
+
+        Text {
+            id: statusLabel
+            Layout.maximumWidth: root.width - 64
+            Layout.alignment: Qt.AlignHCenter
+            color: Material.secondaryTextColor
+            font.pixelSize: 12
+            elide: Text.ElideMiddle
         }
 
         AnimatedScanningIcon {
@@ -34,6 +57,10 @@ Pane {
             onClicked: {
                 stopScanning()
             }
+        }
+
+        Item {
+            Layout.fillHeight: true
         }
     }
 }

@@ -75,6 +75,7 @@ ApplicationWindow {
         Component {
             id: scanningPaneComponent
             ScanningPane {
+                context: paneLoader.searchContext
                 onStopScanning: {
                     paneLoader.searchContext.stop()
                 }

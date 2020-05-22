@@ -87,6 +87,7 @@ void SearchContext::restart()
         QDirIterator it(_rootPath, QDir::Files, QDirIterator::Subdirectories);
         while (it.hasNext() && _state == SearchState::Searching) {
             auto info = it.fileInfo();
+            emit statusUpdated(info.dir().path());
             if (_config->ignoreHidden() && info.isHidden()) {
                 it.next();
                 continue;
@@ -96,6 +97,8 @@ void SearchContext::restart()
             }
             it.next();
         }
+
+        emit statusUpdated(tr("Sorting the files..."));
 
         std::sort(fileInfoList.begin(), fileInfoList.end(), compareFileSizes);
 
