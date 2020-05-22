@@ -1,5 +1,6 @@
 #include "SearchContext.hpp"
 #include "SearchConfig.hpp"
+#include "ResultsListModel.hpp"
 #include <QDebug>
 #include <QtConcurrent>
 #include <QDirIterator>
@@ -19,18 +20,15 @@ SearchContext::SearchContext(const QString &rootPath,
     : QObject(parent)
     , _rootPath(rootPath)
     , _config(config)
+    , _listModel(new ResultsListModel(this, this))
 {
     qRegisterMetaType<SearchState>("SearchState");
+    qRegisterMetaType<ResultsListModel*>("ResultsListModel*");
 }
 
 QString SearchContext::rootPath() const
 {
     return _rootPath;
-}
-
-QStringList SearchContext::files() const
-{
-    return _files;
 }
 
 bool SearchContext::isSearching() const
@@ -43,18 +41,14 @@ bool SearchContext::isCompleted() const
     return _state == SearchState::Completed;
 }
 
-QString SearchContext::getFileSize(const QString &path) const
+QStringList SearchContext::files() const
 {
-    QFileInfo info(path);
-    QLocale locale;
-
-    return locale.formattedDataSize(info.size());
+    return _files;
 }
 
-QString SearchContext::getFileDirectory(const QString &path) const
+ResultsListModel *SearchContext::resultsListModel() const
 {
-    QFileInfo info(path);
-    return info.dir().path();
+    return _listModel;
 }
 
 bool SearchContext::deleteFile(const QString &path)

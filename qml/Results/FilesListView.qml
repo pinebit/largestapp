@@ -20,7 +20,7 @@ ListView {
 
     model: DelegateModel {
         id: visualModel
-        model: context.files
+        model: context.resultsListModel
         groups: [
             DelegateModelGroup {
                 id: selectionGroup
@@ -35,7 +35,7 @@ ListView {
                 function getFilePaths() {
                     let paths = []
                     for (let i = 0; i < count; ++i) {
-                        paths.push(selectionGroup.get(i).model.modelData)
+                        paths.push(selectionGroup.get(i).model.filePath)
                     }
                     return paths
                 }
@@ -44,14 +44,9 @@ ListView {
 
         delegate: FilesListViewDelegate {
             id: item
-            property string filePath: modelData
             selected: DelegateModel.inSelected
             width: root.width - 20
             height: 32
-            descriptor: ({
-                             "filePath": filePath,
-                             "fileSize": root.context.getFileSize(filePath)
-                         })
             onSelect: {
                 root.forceActiveFocus()
                 item.DelegateModel.inSelected = true
@@ -62,8 +57,7 @@ ListView {
                 item.DelegateModel.inSelected = !item.DelegateModel.inSelected
             }
             onOpenContainingFolder: {
-                const folder = root.context.getFileDirectory(filePath)
-                Qt.openUrlExternally(folder)
+                Qt.openUrlExternally(model.fileDir)
             }
             onDeleteFile: {
                 confirmDeleteDialog.filePaths = selectionGroup.getFilePaths()

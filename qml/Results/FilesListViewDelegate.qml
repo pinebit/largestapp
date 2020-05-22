@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.12
 
 Item {
     id: root
-    property var descriptor
     property bool selected: false
     signal select
     signal toggleSelection
@@ -29,13 +28,13 @@ Item {
             Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
             color: Material.primaryTextColor
-            text: descriptor.filePath
+            text: model.filePath
             elide: Text.ElideMiddle
         }
 
         Text {
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-            text: descriptor.fileSize
+            text: model.fileSize
             color: Material.primaryHighlightedTextColor
         }
     }

@@ -5,15 +5,16 @@
 #include <src/SearchState.hpp>
 
 class SearchConfig;
+class ResultsListModel;
 
 class SearchContext : public QObject
 {
     Q_OBJECT
 
     Q_PROPERTY(QString rootPath READ rootPath CONSTANT)
-    Q_PROPERTY(QStringList files READ files NOTIFY updated)
     Q_PROPERTY(bool isSearching READ isSearching NOTIFY updated)
     Q_PROPERTY(bool isCompleted READ isCompleted NOTIFY updated)
+    Q_PROPERTY(ResultsListModel* resultsListModel READ resultsListModel CONSTANT)
 
 public:
     explicit SearchContext(const QString &rootPath,
@@ -21,17 +22,15 @@ public:
                            QObject *parent = nullptr);
 
     QString rootPath() const;
-    QStringList files() const;
     bool isSearching() const;
     bool isCompleted() const;
-
-    Q_INVOKABLE QString getFileSize(const QString &path) const;
-    Q_INVOKABLE QString getFileDirectory(const QString &path) const;
-    Q_INVOKABLE bool deleteFile(const QString &path);
+    QStringList files() const;
+    ResultsListModel *resultsListModel() const;
 
 public slots:
     void restart();
     void stop();
+    bool deleteFile(const QString &path);
 
 signals:
     void updated();
@@ -42,6 +41,7 @@ private:
     SearchState _state { SearchState::New };
     QStringList _files;
     SearchConfig* _config;
+    ResultsListModel* _listModel;
 };
 
 Q_DECLARE_METATYPE(SearchContext*);

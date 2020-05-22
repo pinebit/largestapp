@@ -8,6 +8,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += VERSION=\\\"$$system(git describe --always --abbrev=0)\\\"
 
 SOURCES += \
+    src/ResultsListModel.cpp \
     src/SearchConfig.cpp \
     src/SearchContext.cpp \
     src/SearchEngine.cpp \
@@ -15,6 +16,7 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/ResultsListModel.hpp \
     src/SearchConfig.hpp \
     src/SearchContext.hpp \
     src/SearchEngine.hpp \

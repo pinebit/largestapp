@@ -9,7 +9,7 @@ class VolumesListModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    VolumesListModel(QObject *parent = nullptr);
+    explicit VolumesListModel(QObject *parent = nullptr);
 
     Q_INVOKABLE int getDefaultIndex() const;
 
