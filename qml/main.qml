@@ -17,8 +17,8 @@ ApplicationWindow {
 
     WindowState {
         window: root
-        defaultWidth: 1280
-        defaultHeight: 720
+        defaultWidth: 800
+        defaultHeight: 600
 
         Component.onCompleted: {
             restore()
