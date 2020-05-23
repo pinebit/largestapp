@@ -7,6 +7,7 @@
 #include "src/VolumesListModel.hpp"
 #include "src/SearchEngine.hpp"
 #include "src/SearchConfig.hpp"
+#include "src/DuplicatesFinder.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<VolumesListModel>("NativeComponents", 1, 0, "VolumesListModel");
     qmlRegisterType<SearchEngine>("NativeComponents", 1, 0, "SearchEngine");
     qmlRegisterType<SearchConfig>("NativeComponents", 1, 0, "SearchConfig");
+    qmlRegisterType<DuplicatesFinder>("NativeComponents", 1, 0, "DuplicatesFinder");
 
     const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

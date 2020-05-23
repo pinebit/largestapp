@@ -8,6 +8,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 DEFINES += VERSION=\\\"$$system(git describe --always --abbrev=0)\\\"
 
 SOURCES += \
+    src/DuplicatesFinder.cpp \
+    src/FileHashIterator.cpp \
     src/ResultsListModel.cpp \
     src/SearchConfig.cpp \
     src/SearchContext.cpp \
@@ -16,6 +18,8 @@ SOURCES += \
     src/main.cpp
 
 HEADERS += \
+    src/DuplicatesFinder.hpp \
+    src/FileHashIterator.hpp \
     src/ResultsListModel.hpp \
     src/SearchConfig.hpp \
     src/SearchContext.hpp \

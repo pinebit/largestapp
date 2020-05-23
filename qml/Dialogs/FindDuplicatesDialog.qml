@@ -4,6 +4,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 
 import Components 1.0
+import NativeComponents 1.0
 
 Dialog {
     id: root
@@ -20,7 +21,7 @@ Dialog {
 
     onOpened: {
         root.searching = true
-        root.context.findDuplicates(filePath)
+        finder.find(root.context, root.filePath)
     }
 
     onRejected: {
@@ -28,23 +29,21 @@ Dialog {
     }
 
     onClosed: {
-        root.context.cancelFindingDuplicates()
+        finder.cancel()
         root.searching = false
     }
 
-    Connections {
-        target: root.context
-        onDuplicatesFound: {
+    DuplicatesFinder {
+        id: finder
+
+        onFound: {
             root.searching = false
-            root.duplicatesCount = count
-            if (count > 0) {
-                statusLabel.text = qsTr("The file list is updated to show duplicates.")
-            } else {
-                statusLabel.text = root.filePath
-            }
+            root.duplicatesCount = indices.length
+            statusLabel.text = qsTr("Done.")
         }
-        onStatusUpdated: {
-            statusLabel.text = status
+
+        onTestingCandidate: {
+            statusLabel.text = qsTr("Testing: %1").arg(filePath)
         }
     }
 
@@ -107,3 +106,4 @@ Dialog {
         }
     }
 }
+

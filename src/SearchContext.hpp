@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QFileInfo>
-#include <atomic>
 #include <src/SearchState.hpp>
 
 class SearchConfig;
@@ -33,14 +32,11 @@ public slots:
     void restart();
     void stop();
     bool deleteFile(const QString &path);
-    void findDuplicates(const QString &path);
-    void cancelFindingDuplicates();
     void openFile(const QString &path);
 
 signals:
     void updated();
     void statusUpdated(const QString &status);
-    void duplicatesFound(int count);
 
 private:
     QString _rootPath;
@@ -48,7 +44,6 @@ private:
     QList<QFileInfo> _files;
     SearchConfig* _config;
     ResultsListModel* _listModel;
-    std::atomic<bool> _findingDuplicates { false };
 };
 
 Q_DECLARE_METATYPE(SearchContext*);
