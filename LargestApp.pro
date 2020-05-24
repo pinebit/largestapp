@@ -1,5 +1,6 @@
 TEMPLATE = app
 TARGET = LargestApp
+DESTDIR = $$PWD/installer/packages/com.largestapp.desktop/data
 
 QT += core quick quickcontrols2 concurrent
 CONFIG += c++17 qtquickcompiler
@@ -40,3 +41,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RC_ICONS = app.ico
+
+OTHER_FILES += \
+    installer/config/config.xml \
+    installer/packages/com.largestapp.desktop/meta/package.xml \
+    installer/packages/com.largestapp.desktop/meta/installscript.qs

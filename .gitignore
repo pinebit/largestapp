@@ -50,3 +50,6 @@ compile_commands.json
 
 # QtCreator local machine specific files for imported projects
 *creator.user*
+
+installer/packages/com.largestapp.desktop/data/*
+installer/*.exe
