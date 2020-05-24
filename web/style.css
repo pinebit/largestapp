@@ -1,0 +1,38 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(255, 253, 250);
+}
+
+.header {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.header > h1 {
+    margin-left: 16px;
+}
+
+.description {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.description p {
+    text-align: center;
+    font-weight: bold;
+}
+
+.screenshot {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 32px;
+}
+
+.links {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+}
