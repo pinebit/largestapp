@@ -19,7 +19,7 @@ public slots:
     void cancel();
 
 signals:
-    void found(const QList<int> &indices);
+    void found(const QList<QString> &duplicates);
     void testingCandidate(const QString &filePath);
 
 private:

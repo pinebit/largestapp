@@ -28,5 +28,6 @@
         <file>qml/Settings/AboutSection.qml</file>
         <file>qml/WindowState.qml</file>
         <file>qml/Dialogs/FindDuplicatesDialog.qml</file>
+        <file>qml/Dialogs/CheckableFileListView.qml</file>
     </qresource>
 </RCC>

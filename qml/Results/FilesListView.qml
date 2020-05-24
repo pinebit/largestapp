@@ -24,6 +24,7 @@ ListView {
     section.delegate: Text {
         height: 24
         text: section
+        elide: Text.ElideMiddle
         font.pixelSize: 14
         color: Material.secondaryTextColor
         verticalAlignment: Qt.AlignBottom
@@ -127,6 +128,10 @@ ListView {
             context: root.context
             onClosed: {
                 findDuplicatesDialogLoader.active = false
+            }
+            onRemoveFiles: {
+                confirmDeleteDialog.filePaths = paths
+                confirmDeleteDialog.open()
             }
         }
     }

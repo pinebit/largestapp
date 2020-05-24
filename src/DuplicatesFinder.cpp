@@ -1,9 +1,8 @@
 #include "DuplicatesFinder.hpp"
 #include "SearchContext.hpp"
-#include "FileHashIterator.hpp"
+#include "CompareFiles.hpp"
 #include <QDebug>
 #include <QtConcurrent>
-#include <QFileInfo>
 
 DuplicatesFinder::DuplicatesFinder(QObject *parent)
     : QObject(parent)
@@ -14,7 +13,7 @@ DuplicatesFinder::DuplicatesFinder(QObject *parent)
 void DuplicatesFinder::find(SearchContext *context, const QString &filePath)
 {
     if (_busy) {
-        qWarning() << "Already finding a duplicate!";
+        qWarning() << "Already searching for duplicates!";
         return;
     }
 
@@ -22,59 +21,31 @@ void DuplicatesFinder::find(SearchContext *context, const QString &filePath)
     auto files = context->files();
 
     QtConcurrent::run([this, files, filePath]{
-        const auto testSize = QFileInfo(filePath).size();
-        QList<int> candidates;
+        QList<QString> duplicates;
+        const auto testFileSize = QFileInfo(filePath).size();
 
-        for (int i = 0; i < files.size(); ++i) {
-            if (files[i].filePath() != filePath &&
-                files[i].isReadable() &&
-                files[i].size() == testSize) {
-                candidates << i;
+        for (const auto file : files) {
+            if (!_busy) {
+                break;
             }
-        }
 
-        QList<int> confirmed;
-        FileHashIterator testIterator(filePath);
+            const auto candidatePath = file.filePath();
 
-        if (!candidates.isEmpty() && !testIterator.error() && _busy) {
-            for (int candidateIndex : candidates) {
-                if (!_busy) {
-                    break;
-                }
+            if (file.size() != testFileSize || candidatePath == filePath) {
+                continue;
+            }
 
-                const auto path = files[candidateIndex].filePath();
-                emit testingCandidate(path);
+            emit testingCandidate(candidatePath);
 
-                FileHashIterator candidateIterator(path);
-                if (candidateIterator.error()) {
-                    continue;
-                }
-
-                testIterator.restart();
-                bool duplicate = false;
-
-                while (_busy) {
-                    const auto testHash = testIterator.getNextHash();
-                    const auto candidateHash = candidateIterator.getNextHash();
-                    if (testHash.isEmpty() && candidateHash.isEmpty()) {
-                        duplicate = true;
-                        break;
-                    }
-                    if (testHash.isEmpty() || candidateHash.isEmpty() || testHash != candidateHash) {
-                        break;
-                    }
-                }
-
-                if (duplicate) {
-                    confirmed << candidateIndex;
-                }
+            if (CompareFiles::compare(filePath, candidatePath, _busy)) {
+                duplicates << candidatePath;
             }
         }
 
         if (_busy) {
             _busy = false;
 
-            emit found(confirmed);
+            emit found(duplicates);
         }
     });
 }

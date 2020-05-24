@@ -11,21 +11,17 @@ Dialog {
     property QtObject context
     property string filePath
     property bool searching: false
-    property int duplicatesCount: 0
+    signal removeFiles(var paths)
 
     title: qsTr("FIND DUPLICATES")
     width: 500
-    height: 200
+    height: 300
     modal: true
     closePolicy: Popup.NoAutoClose
 
     onOpened: {
         root.searching = true
         finder.find(root.context, root.filePath)
-    }
-
-    onRejected: {
-        close()
     }
 
     onClosed: {
@@ -38,8 +34,15 @@ Dialog {
 
         onFound: {
             root.searching = false
-            root.duplicatesCount = indices.length
-            statusLabel.text = qsTr("Done.")
+            statusLabel.text = qsTr("Found %1 duplicate(s) for the selected file.").arg(duplicates.length)
+
+            fileList.listModel.clear()
+            duplicates.forEach(duplicate => {
+                fileList.listModel.append(({
+                                               "selected": true,
+                                               "filePath": duplicate
+                                           }))
+            })
         }
 
         onTestingCandidate: {
@@ -68,15 +71,6 @@ Dialog {
         }
 
         Text {
-            visible: !root.searching
-            text: root.duplicatesCount == 0 ?
-                      qsTr("No duplicates were found for the selected file:") :
-                      qsTr("Found %1 duplicate(s) for the selected file.").arg(root.duplicatesCount)
-            font.bold: true
-            color: root.duplicatesCount == 0 ? Material.primaryTextColor : Material.color(Material.Red)
-        }
-
-        Text {
             id: statusLabel
             Layout.topMargin: 8
             color: Material.secondaryTextColor
@@ -85,8 +79,10 @@ Dialog {
             elide: Text.ElideMiddle
         }
 
-        Item {
+        CheckableFileListView {
+            id: fileList
             Layout.fillHeight: true
+            Layout.fillWidth: true
         }
 
         RowLayout {
@@ -100,7 +96,28 @@ Dialog {
             Button {
                 text: root.searching ? qsTr("CANCEL") : qsTr("CLOSE")
                 onClicked: {
-                    root.reject()
+                    root.close()
+                }
+            }
+
+            Button {
+                visible: fileList.count > 0
+                Material.foreground: Material.Red
+                text: qsTr("DELETE FILES")
+                font.bold: true
+                onClicked: {
+                    let removingFiles = []
+                    for (let i = 0; i < fileList.listModel.count; ++i) {
+                        let item = fileList.listModel.get(i)
+                        if (item.selected) {
+                            removingFiles.push(item.filePath)
+                        }
+                    }
+                    if (removingFiles.length > 0) {
+                        root.removeFiles(removingFiles)
+                    }
+
+                    root.close()
                 }
             }
         }
