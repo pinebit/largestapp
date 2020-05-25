@@ -30,9 +30,20 @@ body {
 }
 
 .links {
-    width: 50%;
+    width: 30%;
     margin: 0 auto;
     margin-top: 32px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    border-radius: 8;
+    border-color: black;
+    border-width: 1;
+}
+
+.about {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 32px;
+    margin-bottom: 128px;
+    text-align: center;
 }
