@@ -3,12 +3,14 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
 import QtQml.Models 2.2
+import Qt.labs.settings 1.1
 
 import Dialogs 1.0
 
 ListView {
     id: root
     property QtObject context
+    property Settings settings
 
     clip: true
     focus: true
@@ -98,7 +100,7 @@ ListView {
             let failedToRemove = []
 
             filePaths.forEach(path => {
-                if (!root.context.deleteFile(path)) {
+                if (!root.context.deleteFile(path, settings.moveToTrash)) {
                     failedToRemove.push(path)
                 }
             })

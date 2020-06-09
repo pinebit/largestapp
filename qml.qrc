@@ -29,5 +29,6 @@
         <file>qml/WindowState.qml</file>
         <file>qml/Dialogs/FindDuplicatesDialog.qml</file>
         <file>qml/Dialogs/CheckableFileListView.qml</file>
+        <file>qml/Settings/MoveToTrashSetting.qml</file>
     </qresource>
 </RCC>

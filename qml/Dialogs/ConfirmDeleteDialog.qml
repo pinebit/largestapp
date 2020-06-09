@@ -19,8 +19,8 @@ Dialog {
 
         Text {
             text: root.filePaths.length === 1 ?
-                      qsTr("This file will be PERMANENTLY deleted:") :
-                      qsTr("These %1 files will be PERMANENTLY deleted:").arg(root.filePaths.length)
+                      qsTr("This file will be deleted:") :
+                      qsTr("These %1 files will be deleted:").arg(root.filePaths.length)
             font.bold: true
             color: Material.color(Material.Red)
         }

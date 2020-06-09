@@ -14,7 +14,7 @@ Pane {
 
     Connections {
         target: context
-        onStatusUpdated: {
+        function onStatusUpdated(status) {
             if (statusLabel.text !== status) {
                 statusLabel.text = status
             }

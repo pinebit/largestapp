@@ -61,6 +61,10 @@ Drawer {
                 Layout.fillWidth: true
             }
 
+            MoveToTrashSetting {
+                Layout.fillWidth: true
+            }
+
             Item {
                 Layout.fillHeight: true
             }

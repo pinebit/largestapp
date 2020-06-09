@@ -31,6 +31,7 @@ ApplicationWindow {
         property int minFileSize: 2
         property bool ignoreHidden: true
         property bool groupByFolders: true
+        property bool moveToTrash: true
     }
 
     SearchEngine {
@@ -98,6 +99,7 @@ ApplicationWindow {
             id: resultsPaneComponent
             ResultsPane {
                 context: paneLoader.searchContext
+                settings: appSettings
                 onRestartScanning: {
                     paneLoader.searchContext.restart()
                 }

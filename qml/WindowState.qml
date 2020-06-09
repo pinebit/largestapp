@@ -63,7 +63,7 @@ Item {
 
     Connections {
         target: window
-        onVisibilityChanged: {
+        function onVisibilityChanged() {
             if (window.visibility === Window.Maximized) {
                 curMaximised = true
                 curX = prevX
@@ -81,19 +81,19 @@ Item {
             }
         }
 
-        onXChanged: {
+        function onXChanged() {
             prevX = curX
             curX = window.x
         }
-        onYChanged: {
+        function onYChanged() {
             prevY = curY
             curY = window.y
         }
-        onWidthChanged: {
+        function onWidthChanged() {
             prevWidth = curWidth
             curWidth = window.width
         }
-        onHeightChanged: {
+        function onHeightChanged() {
             prevHeight = curHeight
             curHeight = window.height
         }

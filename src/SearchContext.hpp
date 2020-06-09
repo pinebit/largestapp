@@ -31,7 +31,7 @@ public:
 public slots:
     void restart();
     void stop();
-    bool deleteFile(const QString &path);
+    bool deleteFile(const QString &path, bool moveToTrash);
     void openFile(const QString &path);
 
 signals:

@@ -2,12 +2,14 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
+import Qt.labs.settings 1.1
 
 import Results 1.0
 
 Pane {
     id: root
     property QtObject context
+    property Settings settings
     signal restartScanning
 
     Material.elevation: 4
@@ -57,6 +59,7 @@ Pane {
             id: filesListView
             visible: filesListView.count > 0
             context: root.context
+            settings: root.settings
             Layout.fillWidth: true
             Layout.fillHeight: true
         }

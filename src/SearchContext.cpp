@@ -53,11 +53,17 @@ ResultsListModel *SearchContext::resultsListModel() const
     return _listModel;
 }
 
-bool SearchContext::deleteFile(const QString &path)
+bool SearchContext::deleteFile(const QString &path, bool moveToTrash)
 {
     QFile file(path);
-    if (!file.setPermissions(QFileDevice::WriteOther) || !file.remove()) {
-        return false;
+    if (moveToTrash) {
+        if (!file.moveToTrash()) {
+            return false;
+        }
+    } else {
+        if (!file.setPermissions(QFileDevice::WriteOther) || !file.remove()) {
+            return false;
+        }
     }
 
     _files.removeOne(QFileInfo(path));
