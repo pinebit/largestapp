@@ -4,9 +4,9 @@
 #include <QObject>
 #include <QFileInfo>
 #include <src/SearchState.hpp>
+#include <src/ResultsListModel.hpp>
 
 class SearchConfig;
-class ResultsListModel;
 
 class SearchContext : public QObject
 {

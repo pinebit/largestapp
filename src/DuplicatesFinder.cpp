@@ -24,7 +24,7 @@ void DuplicatesFinder::find(SearchContext *context, const QString &filePath)
         QList<QString> duplicates;
         const auto testFileSize = QFileInfo(filePath).size();
 
-        for (const auto file : files) {
+        for (const auto &file : files) {
             if (!_busy) {
                 break;
             }
